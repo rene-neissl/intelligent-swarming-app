@@ -13,7 +13,3 @@ export const run = render(
         <App />
     </ProjectPage>
 );
-
-export async function handleIssueCreated(event, context) {
-    console.log("Event received");
-}

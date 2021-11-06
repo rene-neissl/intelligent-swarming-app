@@ -7,7 +7,7 @@ modules:
     - key: main
       handler: index.run
     - key: event-handler
-      handler: index.handleIssueCreated
+      handler: events.handleIssueCreated
   trigger:
     - key: issue-created-event
       function: event-handler
@@ -18,3 +18,4 @@ app:
 permissions:
   scopes:
     - 'read:jira-work'
+    - 'write:jira-work'
