@@ -2,7 +2,7 @@ modules:
   jira:projectPage:
     - key: intelligent-swarming-app-hello-world-project-page
       function: main
-      title: Intelligent Swarming
+      title: Intelligent Swarming Workshop
   function:
     - key: main
       handler: index.run

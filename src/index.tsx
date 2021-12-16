@@ -1,9 +1,12 @@
-import ForgeUI, { render, ProjectPage, Fragment, Text } from '@forge/ui';
+import ForgeUI, { render, ProjectPage, Fragment } from '@forge/ui';
+import { SkillManagement } from './skill-management';
+import { UserManagement } from './user-management';
 
 const App = () => {
     return (
         <Fragment>
-            <Text>Hello Intelligen Swarming App!</Text>
+            <UserManagement />
+            <SkillManagement />
         </Fragment>
     );
 };

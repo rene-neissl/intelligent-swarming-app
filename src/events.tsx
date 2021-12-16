@@ -2,9 +2,10 @@ import api, { route } from "@forge/api";
 
 export async function handleIssueCreated(event, context) {
     console.log(JSON.stringify(event));
+    assignIssue(event.issue.id)
 }
 
-async function name(issueId:string) {
+async function assignIssue(issueId:string) {
     // User-Id will be set according to Intelligent Swarming
     var userId = "61448bf5e7c3280070ada128";
 
