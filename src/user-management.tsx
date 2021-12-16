@@ -1,4 +1,4 @@
-import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState, Text } from "@forge/ui";
+import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState } from "@forge/ui";
 
 export const UserManagement = () => {
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
