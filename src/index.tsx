@@ -1,4 +1,5 @@
 import ForgeUI, { render, ProjectPage, Fragment } from '@forge/ui';
+import { DebugComponent } from './debug';
 import { SkillManagement } from './skill-management';
 import { UserManagement } from './user-management';
 
@@ -7,6 +8,7 @@ const App = () => {
         <Fragment>
             <UserManagement />
             <SkillManagement />
+            <DebugComponent />
         </Fragment>
     );
 };
