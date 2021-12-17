@@ -1,11 +1,13 @@
 import ForgeUI, { Button, Fragment, Heading } from "@forge/ui";
-import { deleteSkills } from "./services/storage-service";
+import StorageService from "./services/StorageService";
 
 export const DebugComponent = () => {
+    const storageService: StorageService = new StorageService();
+
     return (
         <Fragment>
             <Heading>Debug Section</Heading>
-            <Button onClick={deleteSkills} appearance="danger" text="Delete all skills"/>
+            <Button onClick={storageService.deleteSkills} appearance="danger" text="Delete all skills"/>
         </Fragment>
     );
 }
