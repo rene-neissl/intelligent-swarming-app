@@ -8,7 +8,7 @@ export default class StorageService {
     ) { }
 
     getSkills = async (): Promise<Array<Skill>> => {
-        return await storage.get(this.skillsKey);
+        return storage.get(this.skillsKey);
     };
 
     addSkill = async (skill: Skill): Promise<Array<Skill>> => {
@@ -24,7 +24,7 @@ export default class StorageService {
     };
 
     deleteSkills = async (): Promise<void> => {
-        return await storage.delete(this.skillsKey);
+        return storage.delete(this.skillsKey);
     };
 
     getSkillsForAgent = async (userId: string): Promise<Array<Skill>> => {
@@ -58,7 +58,7 @@ export default class StorageService {
         if (cursor) {
           query = query.cursor(cursor)
         }
-        return await query.getMany();
+        return query.getMany();
       }
 
     deleteItems = async (itemKeysToDelete: string[]): Promise<void> => {
