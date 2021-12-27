@@ -6,7 +6,7 @@ export const SkillManagement = () => {
     const storageService: StorageService = new StorageService();
 
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
-    const [skills, setSkills] = useState<Skill[]>(() => storageService.getSkills());
+    const [skills, setSkills] = useState<Array<Skill>>(() => storageService.getSkills());
 
     const skillKey: string = "skill";
 

@@ -8,6 +8,7 @@ export const DebugComponent = () => {
         <Fragment>
             <Heading>Debug Section</Heading>
             <Button onClick={storageService.deleteSkills} appearance="danger" text="Delete all skills"/>
+            <Button onClick={storageService.deleteSkillsForAgents} appearance="danger" text="Delete skills for all agents"/>
         </Fragment>
     );
 }

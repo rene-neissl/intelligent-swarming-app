@@ -1,16 +1,27 @@
 import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState } from "@forge/ui";
+import StorageService from "./services/StorageService";
+import Agent from "./types/Agent";
+import Skill from "./types/Skill";
+
+const MaxSkillLevel: number = 2;
 
 export const UserManagement = () => {
+    const storageService: StorageService = new StorageService();
+
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
-    const [selectedUserId, setSelectedUserId] = useState<string>(undefined);
+    const [selectedAgent, setSelectedAgent] = useState<Agent>(undefined);
 
     const onUserSelectionSubmit = async (formData: FormData) => {
-        setSelectedUserId(formData["user"]);
+        const userId: string = formData["user"];
+        setSelectedAgent(new Agent(userId, await storageService.getSkillsForAgent(userId)));
         setModalOpen(true);
     };
 
     const onSkillSelectionSubmit = async (formData: FormData) => {
-        setSelectedUserId(undefined);
+        const skills: Array<Skill> = await storageService.getSkills();
+        await storageService.updateAgent(new Agent(selectedAgent.id, skills.map(skill => new Skill(skill.name, formData[skill.name] || 0))));
+
+        setSelectedAgent(undefined);
         setModalOpen(false);
     };
 
@@ -24,7 +35,9 @@ export const UserManagement = () => {
                 <ModalDialog header="Configure Skills" onClose={() => setModalOpen(false)} width="small">
                     {/* <User accountId={selectedUserId} /> */}
                     <Form onSubmit={onSkillSelectionSubmit} submitButtonText="Confirm" submitButtonAppearance="primary">
-                        <Range label="Skill name" name="skill-name" defaultValue={4} min={0} max={5} step={1} />
+                        {selectedAgent && selectedAgent.skills.map(skill =>
+                            <Range label={skill.name} name={skill.name} defaultValue={skill.level || 0} min={0} max={MaxSkillLevel} step={1} />
+                        )}
                     </Form>
                 </ModalDialog>
             )}
