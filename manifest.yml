@@ -8,11 +8,19 @@ modules:
       handler: index.run
     - key: event-handler
       handler: events.handleIssueCreated
+    - key: issue-created-handler
+      handler: issue-created-consumer.handler
   trigger:
     - key: issue-created-event
       function: event-handler
       events:
         - avi:jira:created:issue
+  consumer:
+    - key: issue-created-consumer
+      queue: issue-created-queue
+      resolver:
+        function: issue-created-handler
+        method: issue-created
 app:
   id: ari:cloud:ecosystem::app/36bffbd1-81a2-4c2b-a1a0-8c9c36b6a9a6
 permissions:
