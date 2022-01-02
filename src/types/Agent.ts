@@ -1,8 +1,11 @@
 import Skill from "./Skill";
 
 export default class Agent {
-    constructor(
-        public id: string,
-        public skills: Array<Skill>
-    ) { }
+    id: string;
+    skills: Array<Skill>;
+
+    constructor(id: string,skills: Array<Skill>) {
+        this.id = id;
+        this.skills = skills || new Array<Skill>();
+    }
 }
