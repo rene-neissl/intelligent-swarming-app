@@ -1,8 +1,13 @@
 modules:
   jira:projectPage:
-    - key: intelligent-swarming-app-hello-world-project-page
+    - key: intelligent-swarming-app-core
       function: main
       title: Intelligent Swarming Workshop
+  jira:issuePanel:
+    - key: intelligent-swarming-app-collaboration
+      function: main
+      title: Intelligent Swarming Collaboration
+      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-alerting-icon.svg
   function:
     - key: main
       handler: index.run
@@ -21,6 +26,7 @@ modules:
       resolver:
         function: issue-created-handler
         method: issue-created
+  
 app:
   id: ari:cloud:ecosystem::app/36bffbd1-81a2-4c2b-a1a0-8c9c36b6a9a6
 permissions:

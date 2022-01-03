@@ -83,3 +83,4 @@ where `skills` and `61448bf5e7c3280070ada128` are the ``keys`` for accessing the
 ## During development
 
 - It is very noticeable that some features of Forge are still in Beta (like UI kit and UI hooks). This affects development as still minor issues appear, which have to be looked at (like major delays in webhook event when a new issue has been created).
+- How to build an app with multiple UI kit components: https://community.developer.atlassian.com/t/how-to-build-several-custom-ui-components-with-one-react-app-in-static-folder/44569/7
