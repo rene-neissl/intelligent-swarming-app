@@ -15,13 +15,15 @@ export const UserManagement = () => {
 
     const onUserSelectionSubmit = async (formData: FormData) => {
         const userId: string = formData["user"];
-        setSelectedAgent(new Agent(userId, await storageService.getSkillsForAgent(userId), await apiService.getIssueCountForAgentId(userId)));
+        setSelectedAgent(new Agent(userId, await storageService.getSkillsForAgent(userId), 0));
         setModalOpen(true);
     };
 
     const onSkillSelectionSubmit = async (formData: FormData) => {
         const skills: Array<Skill> = await storageService.getSkills();
-        await storageService.updateAgent(new Agent(selectedAgent.id, skills.map(skill => new Skill(skill.name, "", formData[skill.name] || 0)), await apiService.getIssueCountForAgentId(selectedAgent.id)));
+        skills.forEach(skill => skill.level = formData[skill.name] || 0);
+
+        await storageService.updateSkillsForAgent(selectedAgent.id, skills);
 
         setSelectedAgent(undefined);
         setModalOpen(false);
@@ -35,7 +37,7 @@ export const UserManagement = () => {
             </Form>
             {isModalOpen && (
                 <ModalDialog header="Configure Skills" onClose={() => setModalOpen(false)} width="small">
-                    <User accountId={selectedAgent.id} />
+                    {selectedAgent && <User accountId={selectedAgent.id} />}
                     <Form onSubmit={onSkillSelectionSubmit} submitButtonText="Confirm" submitButtonAppearance="primary">
                         {selectedAgent && selectedAgent.skills.map(skill =>
                             <Range label={skill.name} name={skill.name} defaultValue={skill.level || 0} min={0} max={MaxSkillLevel} step={1} />

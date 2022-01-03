@@ -31,8 +31,8 @@ export default class StorageService {
         return await storage.get(userId) || await this.getSkills();
     }
 
-    updateAgent = async (user: Agent): Promise<void> => {
-        await storage.set(user.id, user.skills);
+    updateSkillsForAgent = async (agentId: string, skills: Array<Skill>): Promise<void> => {
+        await storage.set(agentId, skills);
     }
 
     deleteSkillsForAgents = async (): Promise<void> => {

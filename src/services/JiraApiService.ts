@@ -3,7 +3,6 @@ import Request from "../types/Request";
 import Agent from "../types/Agent";
 import StorageService from "./StorageService";
 
-
 export default class JiraApiService {
     constructor(
         private storageService: StorageService = new StorageService()
@@ -23,7 +22,7 @@ export default class JiraApiService {
         return issueData.fields.components[0].name;
     }
 
-    public async getAssignableAgentsForProject(projectKey: string): Promise<Array<Agent>> {
+    public async getAssignableAgents(): Promise<Array<Agent>> {
         const agents: Array<Agent> = new Array<Agent>();
         const response = await API.asApp().requestJira(route`/rest/api/3/users`, {
             headers: {
@@ -57,13 +56,6 @@ export default class JiraApiService {
     }
 
     public async assignRequestToAgent(request: Request, agent: Agent): Promise<void> {
-        // const perms = await API.asApp().requestJira(route`/rest/api/3/mypermissions?projectKey=AAAS&permissions=BROWSE_PROJECTS,ASSIGN_ISSUES`, {
-        //     headers: {
-        //       'Accept': 'application/json'
-        //     }
-        // });
-        // console.log(await perms.json());
-
         let body: string = `{
             "accountId": "${agent.id}"
         }`;
