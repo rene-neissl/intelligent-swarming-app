@@ -11,7 +11,7 @@ export const SkillManagement = () => {
     const skillKey: string = "skill";
 
     const onSubmit = async (formData: FormData): Promise<void> => {
-        setSkills(await storageService.addSkill(new Skill(formData[skillKey])));
+        setSkills(await storageService.addSkill(new Skill(formData[skillKey], "")));
         setModalOpen(false);
     };
 

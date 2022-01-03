@@ -1,4 +1,5 @@
 import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState } from "@forge/ui";
+import JiraApiService from "./services/JiraApiService";
 import StorageService from "./services/StorageService";
 import Agent from "./types/Agent";
 import Skill from "./types/Skill";
@@ -7,19 +8,20 @@ const MaxSkillLevel: number = 2;
 
 export const UserManagement = () => {
     const storageService: StorageService = new StorageService();
+    const apiService: JiraApiService = new JiraApiService();
 
     const [isModalOpen, setModalOpen] = useState<boolean>(false);
     const [selectedAgent, setSelectedAgent] = useState<Agent>(undefined);
 
     const onUserSelectionSubmit = async (formData: FormData) => {
         const userId: string = formData["user"];
-        setSelectedAgent(new Agent(userId, await storageService.getSkillsForAgent(userId)));
+        setSelectedAgent(new Agent(userId, await storageService.getSkillsForAgent(userId), await apiService.getIssueCountForAgentId(userId)));
         setModalOpen(true);
     };
 
     const onSkillSelectionSubmit = async (formData: FormData) => {
         const skills: Array<Skill> = await storageService.getSkills();
-        await storageService.updateAgent(new Agent(selectedAgent.id, skills.map(skill => new Skill(skill.name, formData[skill.name] || 0))));
+        await storageService.updateAgent(new Agent(selectedAgent.id, skills.map(skill => new Skill(skill.name, "", formData[skill.name] || 0)), await apiService.getIssueCountForAgentId(selectedAgent.id)));
 
         setSelectedAgent(undefined);
         setModalOpen(false);

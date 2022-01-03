@@ -24,7 +24,7 @@ This document describes the environment which is used for developing, testing an
 
 ## Skills
 
-- ASP.NET
+- Spring Boot
 - Typescript
 - Network
 - Docker
@@ -33,13 +33,13 @@ This document describes the environment which is used for developing, testing an
 
 ## Mapping Category --> Skill
 
-|                             | ASP.NET | Typescript | Network | Docker | Windows | Linux |
-| --------------------------- | ------- | ---------- | ------- | ------ | ------- | ----- |
-| Server                      | 2       | 0          | 1       | 1      | 0       | 0     |
-| User Interface              | 0       | 2          | 1       | 0      | 0       | 0     |
-| SDK                         | 1       | 0          | 1       | 0      | 2       | 0     |
-| Client-Server Communication | 1       | 1          | 2       | 2      | 1       | 1     |
-| Triggers & Notification     | 1       | 0          | 2       | 1      | 0       | 1     |
+|                             | Spring Boot | Typescript | Network | Docker | Windows | Linux |
+| --------------------------- | ----------- | ---------- | ------- | ------ | ------- | ----- |
+| Server                      | 2           | 0          | 1       | 1      | 0       | 0     |
+| User Interface              | 0           | 2          | 1       | 0      | 0       | 0     |
+| SDK                         | 1           | 0          | 1       | 0      | 2       | 0     |
+| Client-Server Communication | 1           | 1          | 2       | 2      | 1       | 1     |
+| Triggers & Notification     | 1           | 0          | 2       | 1      | 0       | 1     |
 
 
 

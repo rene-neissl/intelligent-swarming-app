@@ -1,5 +1,5 @@
 import API, { route } from "@forge/api";
-import Agent from "src/types/Agent";
+import Agent from "../types/Agent";
 import StorageService from "./StorageService";
 
 
@@ -22,19 +22,6 @@ export default class JiraApiService {
         return issueData.fields.components[0].name;
     }
 
-    public async getIssueCountForAgent(agent: Agent): Promise<number> {
-        const response = await API.asApp().requestJira(route`/rest/api/3/search?maxResults=0&jql=assignee=${agent.id}`, {
-            headers: {
-              'Accept': 'application/json'
-            }
-        });
-        
-        console.log(`Response: ${response.status} ${response.statusText}`);
-        
-        const issueData = await response.json();
-        return issueData.total;
-    }
-
     public async getAllAgents(): Promise<Array<Agent>> {
         const agents: Array<Agent> = new Array<Agent>();
         const response = await API.asApp().requestJira(route`/rest/api/3/users`, {
@@ -46,10 +33,23 @@ export default class JiraApiService {
         console.log(`Response: ${response.status} ${response.statusText}`);
         
         const agentData = await response.json();
-        agentData.forEach(async (agent) => {
-            agents.push(new Agent(agent.accountId, await this.storageService.getSkillsForAgent(agent.accountId)))
-        });
+        for (const agent of agentData) {
+            agents.push(new Agent(agent.accountId, await this.storageService.getSkillsForAgent(agent.accountId), await this.getIssueCountForAgentId(agent.accountId)));
+        }
 
         return agents;
+    }
+
+    public async getIssueCountForAgentId(agentId: string): Promise<number> {
+        const response = await API.asApp().requestJira(route`/rest/api/3/search?maxResults=0&jql=assignee=${agentId}`, {
+            headers: {
+              'Accept': 'application/json'
+            }
+        });
+        
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        
+        const issueData = await response.json();
+        return issueData.total;
     }
 }
