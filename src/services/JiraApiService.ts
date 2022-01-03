@@ -1,4 +1,4 @@
-import API, { authorize, route } from "@forge/api";
+import API, { route } from "@forge/api";
 import Request from "../types/Request";
 import Agent from "../types/Agent";
 import StorageService from "./StorageService";

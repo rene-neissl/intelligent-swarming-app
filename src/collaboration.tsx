@@ -18,8 +18,7 @@ export const Collaboration = () => {
         const component: string = await apiService.getIssueComponent(issueId);
         const request: Request = new Request(issueId, skillMapper.getSkillsForComponent(component));
         const agents: Array<Agent> = await apiService.getAssignableAgents();
-        const matches: Array<IntelligentMatchingResult> = intelligentMatching.calculateScoreForAgents(agents, request, EuclideanDistance, QuadraticWorkloadFactor);
-        setMatches(matches);
+        setMatches(intelligentMatching.calculateScoreForAgents(agents, request, EuclideanDistance, QuadraticWorkloadFactor));
     }, []);
 
     return (

@@ -45,8 +45,7 @@ export const EuclideanDistance: DistanceMetric = (a: Array<Skill>, r: Array<Skil
         squaredDistance += skillDistance;
     });
     
-    let euclideanDistance = Math.sqrt(squaredDistance);
-    return euclideanDistance;
+    return Math.sqrt(squaredDistance);
 }
 
 export const QuadraticWorkloadFactor: WorkloadFactor = (w: number): number => {
