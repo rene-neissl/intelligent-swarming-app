@@ -21,6 +21,6 @@
     "@forge/api": "^2.3.0",
     "@forge/events": "^0.5.1",
     "@forge/resolver": "^1.4.1",
-    "@forge/ui": "^0.13.1"
+    "@forge/ui": "^0.16.0"
   }
 }

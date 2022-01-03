@@ -7,7 +7,7 @@ modules:
     - key: intelligent-swarming-app-collaboration
       function: main
       title: Intelligent Swarming Collaboration
-      icon: https://developer.atlassian.com/platform/forge/images/icons/issue-alerting-icon.svg
+      icon: https://www.serviceinnovation.org/wp-content/uploads/2019/03/intelligent-swarming.png
   function:
     - key: main
       handler: index.run
