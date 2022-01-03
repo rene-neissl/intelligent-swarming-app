@@ -1,4 +1,5 @@
-import API, { route } from "@forge/api";
+import API, { authorize, route } from "@forge/api";
+import Request from "../types/Request";
 import Agent from "../types/Agent";
 import StorageService from "./StorageService";
 
@@ -22,7 +23,7 @@ export default class JiraApiService {
         return issueData.fields.components[0].name;
     }
 
-    public async getAllAgents(): Promise<Array<Agent>> {
+    public async getAssignableAgentsForProject(projectKey: string): Promise<Array<Agent>> {
         const agents: Array<Agent> = new Array<Agent>();
         const response = await API.asApp().requestJira(route`/rest/api/3/users`, {
             headers: {
@@ -34,7 +35,9 @@ export default class JiraApiService {
         
         const agentData = await response.json();
         for (const agent of agentData) {
-            agents.push(new Agent(agent.accountId, await this.storageService.getSkillsForAgent(agent.accountId), await this.getIssueCountForAgentId(agent.accountId)));
+            if (agent.accountType === "atlassian") {
+                agents.push(new Agent(agent.accountId, await this.storageService.getSkillsForAgent(agent.accountId), await this.getIssueCountForAgentId(agent.accountId)));
+            }
         }
 
         return agents;
@@ -51,5 +54,30 @@ export default class JiraApiService {
         
         const issueData = await response.json();
         return issueData.total;
+    }
+
+    public async assignRequestToAgent(request: Request, agent: Agent): Promise<void> {
+        // const perms = await API.asApp().requestJira(route`/rest/api/3/mypermissions?projectKey=AAAS&permissions=BROWSE_PROJECTS,ASSIGN_ISSUES`, {
+        //     headers: {
+        //       'Accept': 'application/json'
+        //     }
+        // });
+        // console.log(await perms.json());
+
+        let body: string = `{
+            "accountId": "${agent.id}"
+        }`;
+
+        const response = await API.asApp().requestJira(route`/rest/api/3/issue/${request.id}/assignee`, {
+            method: "PUT",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: body
+        });
+
+        console.log(`Response: ${response.status} ${response.statusText}`);
+        console.log(await response.json());
     }
 }

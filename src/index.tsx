@@ -1,4 +1,4 @@
-import ForgeUI, { render, ProjectPage, Fragment } from '@forge/ui';
+import ForgeUI, { render, ProjectPage, Fragment, useProductContext } from '@forge/ui';
 import { DebugComponent } from './debug';
 import { SkillManagement } from './skill-management';
 import { UserManagement } from './user-management';

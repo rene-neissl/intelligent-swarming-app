@@ -16,14 +16,11 @@ resolver.define("issue-created", async ({ payload, context }) => {
     const component: string = await apiService.getIssueComponent(issueId);
 
     const request: Request = new Request(issueId, skillMapper.getSkillsForComponent(component));
-    console.log(JSON.stringify(request));
+    const agents: Array<Agent> = await apiService.getAssignableAgentsForProject("AAAS");
+    const match: IntelligentMatchingResult = intelligentMatching.findAgentForRequest(agents, request, EuclideanDistance, QuadraticWorkloadFactor);
+    console.log(JSON.stringify(match));
 
-    const agents: Array<Agent> = await apiService.getAllAgents();
-    // const match: IntelligentMatchingResult = intelligentMatching.findAgentForRequest(agents, request, EuclideanDistance, QuadraticWorkloadFactor);
-    // console.log(JSON.stringify(match));
-
-    const matches: Array<IntelligentMatchingResult> = intelligentMatching.calculateScoreForAgents(agents, request, EuclideanDistance, QuadraticWorkloadFactor);
-    console.log(JSON.stringify(matches));
+    await apiService.assignRequestToAgent(match.request, match.agent);
 });
 
 export const handler = resolver.getDefinitions();

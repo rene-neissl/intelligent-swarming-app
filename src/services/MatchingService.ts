@@ -31,7 +31,7 @@ export default class MatchingService {
     private calculateSimilarity(agent: Agent, request: Request, distance: DistanceMetric, workload: WorkloadFactor): IntelligentMatchingResult {
         let similarityScore: number = distance(agent.skills, request.requiredSkills);
         let score = similarityScore * workload(agent.requestsAssigned);
-        return new IntelligentMatchingResult(agent, score);
+        return new IntelligentMatchingResult(agent, request, score);
     }
 }
 
