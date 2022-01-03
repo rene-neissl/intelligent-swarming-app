@@ -1,4 +1,4 @@
-import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState } from "@forge/ui";
+import ForgeUI, { Form, Fragment, Heading, ModalDialog, UserPicker, Range, useState, User } from "@forge/ui";
 import JiraApiService from "./services/JiraApiService";
 import StorageService from "./services/StorageService";
 import Agent from "./types/Agent";
@@ -35,7 +35,7 @@ export const UserManagement = () => {
             </Form>
             {isModalOpen && (
                 <ModalDialog header="Configure Skills" onClose={() => setModalOpen(false)} width="small">
-                    {/* <User accountId={selectedUserId} /> */}
+                    <User accountId={selectedAgent.id} />
                     <Form onSubmit={onSkillSelectionSubmit} submitButtonText="Confirm" submitButtonAppearance="primary">
                         {selectedAgent && selectedAgent.skills.map(skill =>
                             <Range label={skill.name} name={skill.name} defaultValue={skill.level || 0} min={0} max={MaxSkillLevel} step={1} />
