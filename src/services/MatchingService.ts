@@ -7,12 +7,17 @@ type DistanceMetric = (a: Array<Skill>, r: Array<Skill>) => number;
 type WorkloadFactor = (w: number) => number;
 
 export default class MatchingService {
-    public findAgentForRequest(agents: Array<Agent>, request: Request, distance: DistanceMetric, workload: WorkloadFactor): IntelligentMatchingResult {
+    constructor(
+        private distance: DistanceMetric,
+        private workload: WorkloadFactor
+        ) { }
+
+    public findAgentForRequest(agents: Array<Agent>, request: Request): IntelligentMatchingResult {
         let bestMatch: IntelligentMatchingResult;
         let bestScore: number = Infinity;
 
         agents.forEach(agent => {
-            let result: IntelligentMatchingResult = this.calculateSimilarity(agent, request, distance, workload);
+            let result: IntelligentMatchingResult = this.calculateSimilarity(agent, request);
             if (result.score < bestScore)
             {
                 bestScore = result.score;
@@ -23,14 +28,14 @@ export default class MatchingService {
         return bestMatch;
     }
 
-    public calculateScoreForAgents(agents: Array<Agent>, request: Request, distance: DistanceMetric, workload: WorkloadFactor): Array<IntelligentMatchingResult> {
-        return agents.map(agent => this.calculateSimilarity(agent, request, distance, workload))
+    public calculateScoreForAgents(agents: Array<Agent>, request: Request): Array<IntelligentMatchingResult> {
+        return agents.map(agent => this.calculateSimilarity(agent, request))
             .sort((x: IntelligentMatchingResult, y: IntelligentMatchingResult) => x.score - y.score);
     }
 
-    private calculateSimilarity(agent: Agent, request: Request, distance: DistanceMetric, workload: WorkloadFactor): IntelligentMatchingResult {
-        let similarityScore: number = distance(agent.skills, request.requiredSkills);
-        let score = similarityScore * workload(agent.requestsAssigned);
+    private calculateSimilarity(agent: Agent, request: Request): IntelligentMatchingResult {
+        let similarityScore: number = this.distance(agent.skills, request.requiredSkills);
+        let score = similarityScore * this.workload(agent.requestsAssigned);
         return new IntelligentMatchingResult(agent, request, score);
     }
 }

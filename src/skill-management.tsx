@@ -20,7 +20,16 @@ export const SkillManagement = () => {
         <Fragment>
             <Heading>Skill Management</Heading>
             <Table>
-                {skills && skills.map(skill => <Row><Cell><Text>{skill.name}</Text></Cell><Cell><Text>{skill.description}</Text></Cell></Row>)}
+                {skills && skills.map(skill => 
+                    <Row>
+                        <Cell>
+                            <Text>{skill.name}</Text>
+                        </Cell>
+                        <Cell>
+                            <Text>{skill.description}</Text>
+                        </Cell>
+                    </Row>
+                )}
             </Table>
             <Button onClick={() => setModalOpen(true)} appearance="primary" text="Add New Skill"/>
             {isModalOpen && (

@@ -6,7 +6,7 @@ import StorageService from "./StorageService";
 export default class JiraApiService {
     constructor(
         private storageService: StorageService = new StorageService()
-    ) {}
+    ) { }
 
     public async getIssueComponent(issueId: number): Promise<string> {
         const response = await API.asApp().requestJira(route`/rest/api/3/issue/${issueId}?fields=components`, {
@@ -15,11 +15,12 @@ export default class JiraApiService {
             }
         });
     
-        // TODO: Error handling
-        console.log(`Response: ${response.status} ${response.statusText}`);
+        if (response.status !== 200) {
+            console.log(`(getIssueComponent) ${response.status}: ${await response.json()}`);
+            throw new Error("API Request failed");
+        }
 
-        const issueData = await response.json();
-        return issueData.fields.components[0].name;
+        return (await response.json()).fields.components[0].name;
     }
 
     public async getAssignableAgents(): Promise<Array<Agent>> {
@@ -30,10 +31,12 @@ export default class JiraApiService {
             }
         });
 
-        console.log(`Response: ${response.status} ${response.statusText}`);
+        if (response.status !== 200) {
+            console.log(`(getAssignableAgents) ${response.status}: ${await response.json()}`);
+            throw new Error("API Request failed");
+        }
         
-        const agentData = await response.json();
-        for (const agent of agentData) {
+        for (const agent of await response.json()) {
             if (agent.accountType === "atlassian") {
                 agents.push(new Agent(agent.accountId, await this.storageService.getSkillsForAgent(agent.accountId), await this.getIssueCountForAgentId(agent.accountId)));
             }
@@ -49,10 +52,12 @@ export default class JiraApiService {
             }
         });
         
-        console.log(`Response: ${response.status} ${response.statusText}`);
+        if (response.status !== 200) {
+            console.log(`(getIssueCountForAgentId) ${response.status}: ${await response.json()}`);
+            throw new Error("API Request failed");
+        }
         
-        const issueData = await response.json();
-        return issueData.total;
+        return (await response.json()).total;
     }
 
     public async assignRequestToAgent(request: Request, agent: Agent): Promise<void> {
@@ -69,7 +74,9 @@ export default class JiraApiService {
             body: body
         });
 
-        console.log(`Response: ${response.status} ${response.statusText}`);
-        console.log(await response.json());
+        if (response.status !== 204) {
+            console.log(`(assignRequestToAgent) ${response.status}: ${await response.json()}`);
+            throw new Error("API Request failed");
+        }
     }
 }
