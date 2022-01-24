@@ -79,4 +79,12 @@ export default class JiraApiService {
             throw new Error("API Request failed");
         }
     }
+
+    // public async getAvailableComponents(projectKey: string): Promise<string> {
+    //     const response = await API.asApp().requestJira(route`/rest/api/3/project/${projectKey}/components`, {
+    //         headers: {
+    //             'Accept': 'application/json'
+    //         }
+    //     });
+    // }
 }
