@@ -4,8 +4,6 @@ import Skill from "src/types/Skill";
 export default class StorageService {
     private skillsKey: string = "skills"
 
-    constructor() { }
-
     public async getSkills(): Promise<Array<Skill>> {
         return storage.get(this.skillsKey);
     };
@@ -19,11 +17,11 @@ export default class StorageService {
 
         await storage.set(this.skillsKey, skills);
         return skills;
-    };
+    }
 
     public async deleteSkills(): Promise<void> {
         return storage.delete(this.skillsKey);
-    };
+    }
 
     public async getSkillsForAgent(userId: string): Promise<Array<Skill>> {
         return await storage.get(userId) || await this.getSkills();
