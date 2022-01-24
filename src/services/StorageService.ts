@@ -6,7 +6,7 @@ export default class StorageService {
 
     public async getSkills(): Promise<Array<Skill>> {
         return storage.get(this.skillsKey);
-    };
+    }
 
     public async addSkill(skill: Skill): Promise<Array<Skill>> {
         let skills: Array<Skill> = await this.getSkills() || new Array<Skill>();
