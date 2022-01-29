@@ -46,7 +46,7 @@ export default class JiraApiService {
     }
 
     public async getIssueCountForAgentId(agentId: string): Promise<number> {
-        const response = await API.asApp().requestJira(route`/rest/api/3/search?maxResults=0&jql=assignee=${agentId}`, {
+        const response = await API.asApp().requestJira(route`/rest/api/3/search?maxResults=0&jql=assignee=${agentId}%20and%20resolution=null`, {
             headers: {
               'Accept': 'application/json'
             }
