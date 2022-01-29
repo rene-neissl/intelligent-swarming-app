@@ -33,6 +33,8 @@ app:
   id: ari:cloud:ecosystem::app/36bffbd1-81a2-4c2b-a1a0-8c9c36b6a9a6
 permissions:
   scopes:
+    - read:jira-user
+    - write:jira-work
     - read:jira-work
     - read:issue-meta:jira
     - read:issue-security-level:jira
