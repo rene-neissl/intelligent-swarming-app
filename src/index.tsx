@@ -1,4 +1,4 @@
-import ForgeUI, { render, ProjectPage, Fragment, useProductContext, IssuePanel } from '@forge/ui';
+import ForgeUI, { render, ProjectPage, Fragment, IssuePanel } from '@forge/ui';
 import { Collaboration } from './collaboration';
 import { SkillManagement } from './skill-management';
 import { UserManagement } from './user-management';

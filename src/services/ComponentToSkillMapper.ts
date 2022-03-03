@@ -7,8 +7,8 @@ export default class ComponentToSkillMapper {
         switch (component) {
             case "Server":
                 skills.push(new Skill("Spring Boot", "", 2));
-                skills.push(new Skill("Typescript", "", 0));
-                skills.push(new Skill("Network", "", 1));
+                skills.push(new Skill("Angular", "", 0));
+                skills.push(new Skill("Netzwerktechnik", "", 1));
                 skills.push(new Skill("Docker", "", 1));
                 skills.push(new Skill("Windows", "", 0));
                 skills.push(new Skill("Linux", "", 0));
@@ -16,8 +16,8 @@ export default class ComponentToSkillMapper {
         
             case "User Interface":
                 skills.push(new Skill("Spring Boot", "", 0));
-                skills.push(new Skill("Typescript", "", 2));
-                skills.push(new Skill("Network", "", 1));
+                skills.push(new Skill("Angular", "", 2));
+                skills.push(new Skill("Netzwerktechnik", "", 1));
                 skills.push(new Skill("Docker", "", 0));
                 skills.push(new Skill("Windows", "", 0));
                 skills.push(new Skill("Linux", "", 0));
@@ -25,17 +25,17 @@ export default class ComponentToSkillMapper {
 
             case "SDK":
                 skills.push(new Skill("Spring Boot", "", 1));
-                skills.push(new Skill("Typescript", "", 0));
-                skills.push(new Skill("Network", "", 1));
+                skills.push(new Skill("Angular", "", 0));
+                skills.push(new Skill("Netzwerktechnik", "", 1));
                 skills.push(new Skill("Docker", "", 0));
                 skills.push(new Skill("Windows", "", 2));
                 skills.push(new Skill("Linux", "", 0));
                 break;
 
-            case "Client-Server Communication":
+            case "Client-Server-Communication":
                 skills.push(new Skill("Spring Boot", "", 1));
-                skills.push(new Skill("Typescript", "", 1));
-                skills.push(new Skill("Network", "", 2));
+                skills.push(new Skill("Angular", "", 1));
+                skills.push(new Skill("Netzwerktechnik", "", 2));
                 skills.push(new Skill("Docker", "", 2));
                 skills.push(new Skill("Windows", "", 1));
                 skills.push(new Skill("Linux", "", 1));
@@ -43,8 +43,8 @@ export default class ComponentToSkillMapper {
 
             case "Triggers & Notifications":
                 skills.push(new Skill("Spring Boot", "", 1));
-                skills.push(new Skill("Typescript", "", 0));
-                skills.push(new Skill("Network", "", 2));
+                skills.push(new Skill("Angular", "", 0));
+                skills.push(new Skill("Netzwerktechnik", "", 2));
                 skills.push(new Skill("Docker", "", 1));
                 skills.push(new Skill("Windows", "", 0));
                 skills.push(new Skill("Linux", "", 1));
